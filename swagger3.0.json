@@ -1,0 +1,173 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "version":"1.0.0",
+        "description":"API for Social Media Application-postaway2",
+        "title":"Social Media Appl API using MongoDB and Mongoose"
+    },
+    "servers":[
+        {
+            "url":"http://localhost:2100"
+        }
+    ],
+    "components":{
+        "securitySchemes":{
+            "JWT":{
+                "in":"header",
+                "name":"Authorization",
+                "type":"apiKey"
+            }
+        }
+    },
+    "paths":{
+        "/api/user/register":{
+            "post":{
+                "tags":["User Register"],
+                "summary":"Register",
+                "description":"Register before logging into the Social Media App",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    },
+                                    "password":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "400":{
+                        "description":"Invalid credentils"
+                    }
+                }
+            }
+        }  ,
+        "/api/user/login":{
+            "post":{
+                "tags":["Loggin to authenticate"],
+                "summary":"Login",
+                "description":"User login to get jwt token",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "email":{
+                                        "type":"string"
+                                    },
+                                    "password":{
+                                        "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "400":{
+                        "description":"Invalid credentils"
+                    }
+                }
+            }
+        },  
+        "/api/post/all":{
+            "get":{
+                "tags":["Posts"],
+                "summary":"Get all posts",
+                "description":"User will get all posts in in-memory DB",
+                "security":[
+                    {
+                        "JWT":{}
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    },
+                    "401":{
+                        "description":"Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/post/":{
+            "get":{
+                "tags":["Post as per UserId"],
+                "summary":"Fetch all post specific to user logged in",
+                "description":"Fetch all post specific to user logged in",
+                "security":[
+                    {
+                        "JWT":{}
+                    }
+                ],
+                "parameters":{
+                    "in":"path",
+                    "name":"id",
+                    "required":true
+                },
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    },
+                    "401":{
+                        "description":"Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/post/{id}":{
+            "get":{
+                "tags":["Post as per PostId"],
+                "summary":"Fetch all post specific to post ID provided by logged in user",
+                "description":"Fetch all post specific to user logged in",
+                "parameters":{
+                    "name":"id",
+                    "in":"path",
+                    "required":true,
+                    "schema":{
+                        "type":"string"
+                    }
+                },
+                "security":[
+                    {
+                        "JWT":{}
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"OK"
+                    },
+                    "400":{
+                        "description":"Bad request"
+                    },
+                    "401":{
+                        "description":"Unauthorized"
+                    }
+                }
+            }
+        }
+    }
+}
