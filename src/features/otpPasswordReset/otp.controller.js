@@ -69,7 +69,7 @@ export class otpController{
                 // console.log("otp-",otp);
                 res.status(200).send("OTP verified Un-successfully, Please provide correct otp");
             }
-        }catch(err){
+        }catch(err){ 
             console.log(err);
             res.status(400).send('Error occured while verifying OTP');
         }

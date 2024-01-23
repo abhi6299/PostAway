@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 
 const userModel = mongoose.model('User',userSchema);
 const otpModel = mongoose.model('otp',otpSchema);
-export class OtpRepository{
+export class OtpRepository{ 
 
     async find(id){
         try{
